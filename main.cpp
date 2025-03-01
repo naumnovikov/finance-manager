@@ -2,6 +2,7 @@
 #include <ctime>
 #include <vector>
 #include <iostream>
+#include <iomanip>
 
 struct Transaction{
     std::string category;
@@ -42,9 +43,9 @@ int main(){
                 std::tm* local_time = std::localtime(&now);
                 transaction.date = std::asctime(local_time);
                 transaction.date.pop_back();
-                std::cout << "Type a category: ";
+                std::cout << "Type a category: "; //добавить выбор
                 std::getline(std::cin, transaction.category);
-                std::cout << "Type a amount: ";
+                std::cout << "Type a amount: "; //поработать с копейками и выводом
                 std::cin >> transaction.amount;
                 std::cin.ignore();
                 std::cout << "Type a description: ";
@@ -55,7 +56,7 @@ int main(){
             }
             case 2:
                 manager.ShowBalance();
-                std::cout << "\n";
+                std::cout << "\n" << std::endl;
                 break;
             case 3:
                 manager.ShowTransactions();
@@ -79,7 +80,7 @@ void FinanceManager::ShowBalance(){
     for (const Transaction& transaction:transactions){
         balance += transaction.amount;
     }
-    std::cout << "Your balance: " << balance;
+    std::cout << "Your balance: "  << std::fixed << std::setprecision(10) << balance;
 }
 
 void FinanceManager::ShowTransactions(){
